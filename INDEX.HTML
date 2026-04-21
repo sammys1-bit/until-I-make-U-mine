@@ -1,0 +1,113 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body style="margin:0; font-family:Arial; background:linear-gradient(135deg,#f6f7fb,#e8ecf5); color:#333; text-align:center;">
+
+<!-- ENTRY -->
+<div id="entry" style="margin-top:120px;">
+  <h1 style="font-size:42px;">(>_<) wait...</h1>
+
+  <p style="font-size:20px;">only you can open this 💌</p>
+
+  <p style="font-size:18px;">what does your favorite person call you?</p>
+
+  <input id="pass" style="padding:10px; font-size:16px; border-radius:10px; border:1px solid #ccc;">
+  <br><br>
+
+  <button onclick="checkPass()" style="padding:10px 20px; border-radius:20px;">enter →</button>
+
+  <p id="msg"></p>
+</div>
+
+<!-- MAIN -->
+<div id="main" style="display:none; margin-top:80px; padding:20px;">
+  <h1 style="font-size:40px;">(╥﹏╥) hey...</h1>
+
+  <p style="font-size:20px; width:80%; margin:auto;">
+    i know i messed up…<br>
+    and i really didn’t mean to hurt you
+  </p>
+
+  <br>
+
+  <p style="font-size:20px;">can i try again?</p>
+
+  <button onclick="yesClick()" style="padding:12px 25px; font-size:18px; border-radius:20px;">yes :)</button>
+
+  <button onclick="noClick()" id="noBtn" style="padding:12px 25px; font-size:18px; border-radius:20px;">no :(</button>
+
+  <p id="noMsg" style="margin-top:20px;"></p>
+
+  <p style="font-size:22px;"><3 <3 * * <3</p>
+</div>
+
+<!-- FINAL -->
+<div id="final" style="display:none; margin-top:100px;">
+  <h1 style="font-size:42px;">you said yes (╥﹏╥)</h1>
+
+  <p style="font-size:22px;">
+    i’ll do better this time… really.<br>
+    thank you for giving me another chance.
+  </p>
+
+  <p style="font-size:26px;"><3 <3 <3 * * * <3</p>
+</div>
+
+<script>
+// PASSWORD CHECK
+function checkPass() {
+  var val = document.getElementById("pass").value.toLowerCase().trim();
+  if (val === "jolokia") {
+    document.getElementById("entry").style.display = "none";
+    document.getElementById("main").style.display = "block";
+  } else {
+    document.getElementById("msg").innerHTML = "(>_<) not quite… try again";
+  }
+}
+
+// NO BUTTON TEXT LOOP
+var texts = ["please…", "don’t say no", "i’ll fix it", "one more chance?"];
+var i = 0;
+
+function noClick() {
+  document.getElementById("noBtn").innerHTML = texts[i];
+  i = (i + 1) % texts.length;
+}
+
+// YES CLICK
+function yesClick() {
+  confetti();
+  setTimeout(function(){
+    document.getElementById("main").style.display = "none";
+    document.getElementById("final").style.display = "block";
+  }, 700);
+}
+
+// CONFETTI
+function confetti() {
+  for (let i = 0; i < 60; i++) {
+    let c = document.createElement("div");
+    c.innerHTML = "*";
+    c.style.position = "absolute";
+    c.style.left = Math.random()*window.innerWidth + "px";
+    c.style.top = "-10px";
+    c.style.fontSize = "20px";
+    c.style.color = ["#ff6b6b","#feca57","#48dbfb","#1dd1a1"][Math.floor(Math.random()*4)];
+
+    document.body.appendChild(c);
+
+    let fall = setInterval(() => {
+      c.style.top = (parseInt(c.style.top) + 5) + "px";
+      if (parseInt(c.style.top) > window.innerHeight) {
+        c.remove();
+        clearInterval(fall);
+      }
+    }, 30);
+  }
+}
+</script>
+
+</body>
+</html>
